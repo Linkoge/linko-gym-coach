@@ -1,0 +1,23 @@
+data/
+videos/
+Videos/
+models/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.env
+*.egg-info/
+build/
+dist/
+*.log
+test-results/
+playwright-report/
+# Private footage belongs outside source control, regardless of location.
+*.mp4
+*.MP4
+*.mov
+*.MOV
+*.avi
+*.mkv

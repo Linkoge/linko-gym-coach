@@ -1,0 +1,24 @@
+[Unit]
+Description=Linko Gym Coach (loopback and private Tailscale access)
+After=network-online.target tailscaled.service
+Wants=network-online.target
+Requires=tailscaled.service
+PartOf=tailscaled.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=codex
+Group=codex
+WorkingDirectory=/home/codex/projects/linko-gym-coach
+ExecStart=/home/codex/projects/linko-gym-coach/.venv/bin/python -m app.serve --tailscale --port 8000
+Restart=on-failure
+RestartSec=5
+KillMode=control-group
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linko Gym Coach · Pose tracking</title><link rel="stylesheet" href="/static/style.css">
+<script src="/static/app.js" defer></script></head>
+<body>
+<header><a href="/" class="brand">LINKO <span>GYM COACH</span></a><span class="badge">STAGE 1 · LOCAL PROCESSING</span></header>
+<main>
+<section id="upload-page">
+<p class="eyebrow">POSE-TRACKING FOUNDATION</p><h1>See what the tracker sees.</h1>
+<p class="intro">Upload a workout video to inspect body landmarks, tracking confidence, and movement stability. All video processing stays on this machine.</p>
+<form id="upload-form" class="panel">
+<label for="video" class="file-label">Select a workout video</label>
+<input id="video" name="video" type="file" accept=".mp4,.mov,video/mp4,video/quicktime" required>
+<p id="filename">MP4 or MOV · Portrait or landscape · 30 / 60 FPS · Long recordings supported</p>
+<button id="upload-button" type="submit">Upload &amp; process <span>→</span></button>
+<div id="upload-progress" hidden><label for="upload-bar">Uploading <span id="upload-percent">0%</span></label><progress id="upload-bar" max="100" value="0"></progress></div>
+</form>
+<p class="note">This stage measures tracking quality. Exercise recognition and coaching will come in later stages.</p>
+</section>
+<section id="processing-page" hidden>
+<p class="eyebrow">PROCESSING YOUR RECORDING</p><h1 id="stage">Reading video</h1>
+<p id="job-filename" class="intro"></p>
+<div class="panel"><progress id="process-bar" max="1" value="0"></progress><p id="process-detail" role="status" aria-live="polite"></p>
+<ol class="stages"><li>Reading video</li><li>Tracking pose</li><li>Creating overlay</li><li>Creating verification gallery</li><li>Complete</li></ol></div>
+<p class="note">Offline tracking can take longer than playback. Keep the local server running. You can return to this job using this page’s URL.</p>
+</section>
+<div id="error" class="error" role="alert" hidden></div>
+<section id="result-page" hidden>
+<p class="eyebrow">STAGE 1 REPORT</p><div class="heading-row"><h1>Tracking result</h1><a href="/" class="button secondary">New video</a></div>
+<p id="result-filename" class="intro"></p>
+<div class="report-grid"><div class="panel"><h2>Video</h2><dl id="video-details"></dl></div><div class="panel"><h2>Tracking <span id="quality-label" class="quality"></span></h2><dl id="tracking-details"></dl></div></div>
+<div class="panel limits"><h2>Tracking limitations</h2><p>Quality reflects detection consistency and confidence, not verified anatomical accuracy. Inspect hips, knees, ankles, shoulders, elbows, and wrists before using these measurements.</p><ul id="limitations"></ul></div>
+<section class="panel"><div class="heading-row"><h2>Skeleton overlay</h2><label for="overlay-mode">View <select id="overlay-mode"><option value="smoothed">Smoothed landmarks</option><option value="raw">Raw landmarks</option><option value="original">Original video</option></select></label></div>
+<video id="overlay-video" controls preload="metadata" playsinline></video>
+<p id="overlay-legend" class="note">Green: reliable · Amber: lower confidence · Overlay videos are silent. The original upload is preserved.</p></section>
+<section><h2>Tracking verification</h2><p class="intro small">Distributed frames and confidence or movement extremes. Compare original, raw, and smoothed tracking. Open any image at full resolution.</p><div id="gallery"></div></section>
+<div class="report-grid"><section class="panel"><h2>Files</h2><div id="files" class="files"></div></section><section class="panel"><h2>Landmarks frequently lost</h2><p id="lost-note" class="note">Missing detection or low confidence, excluding ambiguous multi-person frames.</p><table><thead><tr><th>Landmark</th><th>Lost frames</th><th>Percent</th></tr></thead><tbody id="lost-landmarks"></tbody></table></section></div>
+<p id="job-id" class="note"></p>
+</section>
+</main><footer>Linko Gym Coach · Stage 1 · No analytics. No external AI services.</footer>
+</body></html>
